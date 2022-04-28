@@ -2,7 +2,7 @@ package Exercise4;
 
 public abstract class Account {
 	String accountType;
-	static double balance;
+	private double balance; // static variable belong to the class not the object of the class
 	Customer customer;
 	
 	public Account(Customer customer, String accountType) {
@@ -16,15 +16,16 @@ public abstract class Account {
 		return balance;
 	}
 
-	public static void setBalance(double balance) {
-		Account.balance = balance;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 
-	public void deposite(double amount) {
+	public void deposit(double amount) {
+		System.out.println("Deposit... " + amount);
 		balance += amount;
-		System.out.println("Deposite... " + balance);
 		System.out.println("SUCCESSFUL TRANSACTION");
+		System.out.println();
 	}
 	
 	public void withdraw(double amount) {
@@ -32,17 +33,18 @@ public abstract class Account {
 		System.out.println("Please wait while withdrawing amount: "+ amount);
 		if (remaining < 0) {
 			System.out.println("TRANSACTION DENIED. Insufficient funds");
+			System.out.println();
 		}
 		else {
 			balance -= amount;
 			System.out.println("SUCCESSFUL TRANSACTION");
+			System.out.println();
 		}
 	}
 	
 	public void display() {
-		System.out.format("Name: %s %s \n" +
-				"Account type: %s\n" +
-				"Balance: %f\n", customer.getFirstName(), customer.getLastName(), accountType, balance);
+		System.out.format("Customer Account Name: %s %s \n" +
+				"%s Account Balance: %.2f\n" , customer.getFirstName(), customer.getLastName(), accountType, balance);
 		System.out.println();
 		
 	}
